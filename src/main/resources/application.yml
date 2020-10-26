@@ -1,4 +1,45 @@
 server:
   port: 9000
+spring:
+  application:
+    name: templatemode-service
+  datasource:
+    url: jdbc:mysql://miamoro1y.com:3306/test?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false
+    username: hetao
+    password: hetao-password1
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    filters: stat
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 100
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validationQuery: select 'x'
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      filters: config,wall,stat
+      poolPreparedStatements: true #
+      maxPoolPreparedStatementPerConnectionSize: 20
+      maxOpenPreparedStatements: 20
+      connectionProperties: druid.stat.slowSqlMillis=200;druid.stat.logSlowSql=true;config.decrypt=false
 
+
+mybatis-plus:
+  type-aliases-package: com.po
+  mapper-locations: classpath:mapper/mybatis-plus/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    jdbc-type-for-null: null
+    global-config:
+      #驼峰下划线转换
+      column-underline: true
+      db-config:
+        db-type: mysql
+        logic-delete-value: 1
+        logic-not-delete-value: 0
+      banner: false
 
