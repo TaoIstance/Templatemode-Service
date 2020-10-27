@@ -3,12 +3,16 @@ package com.service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.param.AbstractParam;
 import com.po.AbstractPO;
 import com.vo.AbstractResponse;
+import com.vo.contract.ContractResponse;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +40,20 @@ public abstract class AbstractService<R extends AbstractResponse, P extends Abst
         E e = this.getBaseMapper().selectById(p.getId());
         BeanUtils.copyProperties(e,response);
         return response;
+    }
+
+    //TODO 有问题泛型 pagehelper没办法识别
+    @Deprecated
+    public List<R> searchPage(P p){
+        Page<E> page=PageHelper.startPage(p.getPageNum(), p.getPageSize());
+        Page<E> mapperList = page.doSelectPage(() -> this.getBaseMapper().selectList(new LambdaQueryWrapper<>()));
+        List<R> result =new ArrayList<>(mapperList.size());
+        mapperList.forEach(contractPO -> {
+            R r=getResponse();
+            BeanUtils.copyProperties(contractPO,r);
+            result.add(r);
+        });
+        return result;
     }
 
     public String search() {

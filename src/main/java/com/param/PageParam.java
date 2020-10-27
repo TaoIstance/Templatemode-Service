@@ -1,5 +1,6 @@
 package com.param;
 
+import com.github.pagehelper.Page;
 import lombok.Data;
 
 /**
@@ -10,6 +11,9 @@ import lombok.Data;
  * @description 基础参数类
  **/
 @Data
-public abstract class AbstractParam extends PageParam{
-    private String id;
+public abstract class PageParam {
+    private Integer pageSize;
+    private Integer pageNum;
+    private Long total;
+    private String orderBy;
 }

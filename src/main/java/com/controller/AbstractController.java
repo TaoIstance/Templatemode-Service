@@ -37,6 +37,12 @@ public  class   AbstractController<S extends AbstractService,R extends AbstractR
         return (R) s.searchById(id);
     }
 
+
+    @GetMapping("/searchPage")
+    public List<R> searchPage(@RequestBody P p){
+        return  s.searchPage(p);
+    }
+
     @DeleteMapping("/search")
     public Integer delete(){
         return s.delete();
