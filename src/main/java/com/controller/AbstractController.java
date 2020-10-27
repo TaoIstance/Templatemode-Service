@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * <p>TemplatemodeController TODO</p>
  *
@@ -23,6 +25,11 @@ public  class   AbstractController<S extends AbstractService,R extends AbstractR
     @GetMapping("/search")
     public String search(){
         return s.search();
+    }
+
+    @GetMapping("/searchParam")
+    public R searchParam(@RequestBody P p){
+        return (R) s.searchParam(p);
     }
 
     @GetMapping("/search/{id}")

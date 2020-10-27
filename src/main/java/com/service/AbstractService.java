@@ -23,9 +23,17 @@ public abstract class AbstractService<R extends AbstractResponse, P extends Abst
 
     abstract R getResponse();
 
+
     public R searchById(String id) {
         R response=getResponse();
         E e = this.getBaseMapper().selectById(id);
+        BeanUtils.copyProperties(e,response);
+        return response;
+    }
+
+    public R searchParam(P p){
+        R response=getResponse();
+        E e = this.getBaseMapper().selectById(p.getId());
         BeanUtils.copyProperties(e,response);
         return response;
     }
