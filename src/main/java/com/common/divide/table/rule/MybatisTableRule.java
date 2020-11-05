@@ -51,6 +51,7 @@ public class MybatisTableRule implements DivideTableRule{
         final Object parameter = queryArgs[PARAMETER_INDEX];
 //        final BoundSql boundSql = mappedStatement.getBoundSql(parameter);
         //测试rebase
+        //测试rebase master
         return invocation.proceed();
     }
 
